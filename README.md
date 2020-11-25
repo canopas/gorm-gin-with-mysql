@@ -6,4 +6,4 @@ This repository guides to how ORM can be implemented in Golang. After cloning th
 
 2. Run `go run main.go`
 
-After running the comands, project server runs on `8080` .
+After running the commands, project server runs on `8080` .
