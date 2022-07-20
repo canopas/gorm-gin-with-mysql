@@ -2,11 +2,13 @@ package controllers
 
 import (
 	"errors"
-	"github.com/gin-gonic/gin"
 	"gorm-test/database"
 	"gorm-test/models"
-	"gorm.io/gorm"
 	"net/http"
+	"strconv"
+
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type UserRepo struct {
@@ -44,7 +46,7 @@ func (repository *UserRepo) GetUsers(c *gin.Context) {
 
 //get user by id
 func (repository *UserRepo) GetUser(c *gin.Context) {
-	id, _ := c.Params.Get("id")
+	id, _ := strconv.Atoi(c.Param("id"))
 	var user models.User
 	err := models.GetUser(repository.Db, &user, id)
 	if err != nil {
@@ -62,7 +64,7 @@ func (repository *UserRepo) GetUser(c *gin.Context) {
 // update user
 func (repository *UserRepo) UpdateUser(c *gin.Context) {
 	var user models.User
-	id, _ := c.Params.Get("id")
+	id, _ := strconv.Atoi(c.Param("id"))
 	err := models.GetUser(repository.Db, &user, id)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -85,7 +87,7 @@ func (repository *UserRepo) UpdateUser(c *gin.Context) {
 // delete user
 func (repository *UserRepo) DeleteUser(c *gin.Context) {
 	var user models.User
-	id, _ := c.Params.Get("id")
+	id, _ := strconv.Atoi(c.Param("id"))
 	err := models.DeleteUser(repository.Db, &user, id)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err})

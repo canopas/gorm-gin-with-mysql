@@ -30,7 +30,7 @@ func GetUsers(db *gorm.DB, User *[]User) (err error) {
 }
 
 //get user by id
-func GetUser(db *gorm.DB, User *User, id string) (err error) {
+func GetUser(db *gorm.DB, User *User, id int) (err error) {
 	err = db.Where("id = ?", id).First(User).Error
 	if err != nil {
 		return err
@@ -45,10 +45,7 @@ func UpdateUser(db *gorm.DB, User *User) (err error) {
 }
 
 //delete user
-func DeleteUser(db *gorm.DB, User *User, id string) (err error) {
+func DeleteUser(db *gorm.DB, User *User, id int) (err error) {
 	db.Where("id = ?", id).Delete(User)
 	return nil
 }
-
-
-
